@@ -171,7 +171,7 @@ document.addEventListener(
 
 		let stickyEl;
 		if (document.querySelector(".from-selection") != null) {
-			stickyEl = new Sticksy('.from-selection', { topSpacing: 140, listen: true }, true);
+			stickyEl = new Sticksy(".from-selection", { topSpacing: 140, listen: true }, true);
 		}
 	},
 	false
@@ -234,10 +234,6 @@ $(document).ready(function () {
 	let paddingNextBlock = $(".header").next().css("padding-top");
 	let subFrom = paddingNextBlock.length - 2;
 
-	console.log(heightHeader);
-	console.log(paddingNextBlock);
-	console.log(subFrom);
-
 	$(window).on("resize", function () {
 		heightHeader = $(".header").height();
 		if (!$(".header").next().hasClass("next-scrolled")) {
@@ -249,7 +245,7 @@ $(document).ready(function () {
 	$(window).on("scroll", function () {
 		let scrolled = $(this).scrollTop();
 
-		if (scrolled > heightHeader) {
+		if (scrolled > heightHeader + 10) {
 			$(".header").addClass("scrolled");
 			$(".header").next().addClass("next-scrolled");
 			$(".header")
@@ -329,7 +325,6 @@ $(document).ready(function () {
 		}
 	});
 
-
 	// Расставляем точки на карте
 	function mapHint() {
 		$.each($(".offices__item"), function (index, val) {
@@ -344,40 +339,38 @@ $(document).ready(function () {
 
 	let jqMatch = [window.matchMedia("(max-width: 768px)")];
 
-	// Обработчик события для открытия информации о офисе на моиблке 
+	// Обработчик события для открытия информации о офисе на моиблке
 	function cityClickMobile() {
 		let city = $(this).attr("data-city");
 
 		if (!$(this).hasClass("active")) {
-
 			$(".offices__item").removeClass("active");
 
 			$(".offices__item-office").slideUp(300);
-	
+
 			setTimeout(() => {
 				$(".offices__item-office").removeClass("active");
 			}, 300);
-	
+
 			$(this).addClass("active");
-	
+
 			$("#" + city).slideDown(300);
-	
+
 			setTimeout(() => {
 				$("#" + city).addClass("active");
 			}, 300);
-
 		} else {
 			$(".offices__item").removeClass("active");
 
 			$(".offices__item-office").slideUp(300);
-	
+
 			setTimeout(() => {
 				$(".offices__item-office").removeClass("active");
 			}, 300);
 		}
 	}
 
-	// Обработчик события для открытия информации о офисе на десктопе 
+	// Обработчик события для открытия информации о офисе на десктопе
 	function cityClickDesktop() {
 		if (!$(this).hasClass("active")) {
 			let city = $(this).attr("data-city");
@@ -397,15 +390,13 @@ $(document).ready(function () {
 			setTimeout(() => {
 				$("#" + city).addClass("active");
 			}, 300);
-
 		}
 	}
 
 	function moveOfficeInfo() {
 		if (jqMatch[0].matches) {
-
 			// Елси разрешение ниже 768 пикселей переносим блоки с информацие об офисах
-			$.each($(".offices__item"), function(index, val) {
+			$.each($(".offices__item"), function (index, val) {
 				let city = $(val).attr("data-city");
 
 				$(val).after($("#" + city));
@@ -419,7 +410,6 @@ $(document).ready(function () {
 			// Вешаем обработчик для мобилки
 			$(".offices__item").off();
 			$(".offices__item").on("click", cityClickMobile);
-
 		} else {
 			// Если разрешение больше 768 пикселей возвращаем блоки на место
 			$(".offices__info").append($(".offices__item-office"));
@@ -427,9 +417,9 @@ $(document).ready(function () {
 			// Если ни один блок не активен делаем активным первый
 			if (!$(".offices__item").hasClass("active")) {
 				$(".offices__item").eq(0).addClass("active");
-			
+
 				$("#" + $(".offices__item").eq(0).attr("data-city")).addClass("active");
-	
+
 				$("#" + $(".offices__item").eq(0).attr("data-city")).slideDown(300);
 			}
 
@@ -466,7 +456,7 @@ $(document).ready(function () {
 	});
 
 	$(".lightgallery").lightGallery({
-		selector: 'a'
+		selector: "a",
 	});
 
 	// Скролл к верху страницы
